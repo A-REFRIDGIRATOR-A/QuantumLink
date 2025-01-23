@@ -1,0 +1,64 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Kali Linux Terminal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Fira Code', monospace;
+            background-color: #0f0f0f;
+            color: #00ff00;
+        }
+        .terminal {
+            height: 100vh;
+            overflow-y: auto;
+        }
+        .input-line {
+            display: flex;
+            align-items: center;
+        }
+        .input-line span {
+            margin-right: 8px;
+        }
+        .input-line input {
+            background: transparent;
+            border: none;
+            color: #00ff00;
+            outline: none;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal p-4">
+        <div id="output">
+            <div class="mb-2 text-green-500">
+                Currently availble commands: sudo apt-install, sudo apt upgrade, sudo apt update
+            </div>
+        </div>
+        <div class="input-line">
+            <span class="text-blue-500">root@kali:~#</span>
+            <input id="commandInput" type="text" autofocus/>
+        </div>
+    </div>
+    <script>
+        document.getElementById('commandInput').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                const command = event.target.value;
+                if (command.trim() !== '') {
+                    const outputDiv = document.getElementById('output');
+                    const newLine = document.createElement('div');
+                    newLine.classList.add('mb-2');
+                    newLine.innerHTML = `<span class="text-blue-500">root@kali:~#</span> ${command}`;
+                    outputDiv.appendChild(newLine);
+                    event.target.value = '';
+                    outputDiv.scrollTop = outputDiv.scrollHeight;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
